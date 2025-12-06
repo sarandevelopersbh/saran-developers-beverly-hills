@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { createPageUrl } from '../utils';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Quote, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Quote, MapPin } from 'lucide-react';
 import FeaturedCarousel from '../components/FeaturedCarousel';
-import ProjectCard from '../components/ProjectCard';
 import SEO from '../components/SEO';
 
 // Static Data for "Hardcoded" requirements
@@ -14,7 +12,7 @@ const STATIC_PROJECTS = [
     title: "Mulberry Woods",
     description: "An enclave of 12 custom estates surrounded by protected woodlands.",
     location: "Beverly Hills",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9P0K16eTd3L-zsxGYXX0_AKzY0MMnTuZIXvjI43ugz2NilmF3wqq_INBr6wPOPPc0aWB-QmosWjdxPmpxPIE4KZ05JdzmqfHjx4M-q8hGNRyRc3z0PYgTUNbHbSP5E5pfhvzFe1z39T9b-eb6_udN5ZfxoXMabuHS4NtV_KxfLPy2s22fZwOfQZKRNKcy/w640-h350/beverly-hills-luxury-pool-maintenance-outdoor-living.png&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7AGgxc533qiWHWkRvrWBD8Nd5hvDQ0-pCcaySCehbN2bhQkeO6a-ymw4MFIhaezxyemBzGkABdh1WbgnrwvCuqIk0psju8Z7c1ROOhe9Cf8uOvWt3q48D8ruVomO9lvna6J0bYhUETZjq3bjm1tcVKzepS5VhL4Lh5_pH2iTzvPJsbZNW3bFUsT18thXH/w640-h350/luxury-estate-construction-beverly-hills-mulberry-woods-exterior.png",
     page_name: "ProjectMulberryWoods",
     featured: true
   },
@@ -23,7 +21,7 @@ const STATIC_PROJECTS = [
     title: "Azure Heights",
     description: "Modern architectural masterpieces with panoramic ocean views.",
     location: "San Francisco",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhX5DDUKFG_AT53IaOBCR-1waz6LvoRoNGrKBmQ3X9sx5fy1Y2Sl5t-MuU7YxtY5OO5ly4WT3QGXCGN8pv7wbiRpWV9CZqTbxZMre3e_79_mcrK1S4aOpytsn_BWcYwBSAkYoUhApvWsCNedOgdfvZSNF7yp54G1ZAejPXWmDbuhHqT1jINz5IQMxsvYamv/w640-h350/luxury-rooftop-amenity-deck-san-francisco-firepit.png?q=80&w=2000&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBB-wztcJ9vt9DhaHgZaw0D9ZZaXdJnH21yqWQuF8b3rrlDoCgkYgTJLtHLoW-XwQeEVeQ7Zznhjuu036QmHTnulQNfuAsvXg4EJM6imHpRDIryYoZ1pDZj0aQ1nCquQ0p9jXXGgAexoxtSb1s0iS2ELNlpb4wzvWv4E7_0oSiYMH05h3ydRb6uYgmE5mP/w640-h350/high-rise-luxury-tower-development-san-francisco-skyline.png",
     page_name: "ProjectAzureHeights",
     featured: true
   },
@@ -32,7 +30,7 @@ const STATIC_PROJECTS = [
     title: "Casa de la Costa",
     description: "Spanish revival grandeur meeting contemporary luxury.",
     location: "Montecito",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeVyfXHmN626XFR47zOGIc_T0lNr9ilcODJ9COiTiY4O9fwEgd026SD3xc5zNv5iHQHsMg8-D6tQUKkhRYX-DcTetFYjtCDzL5a808IPHOq8t-9ENtWJZOAE9ZkKZ_iwHapXIWcEl7XvOYkUcktipkRXn8VkQ7ErQ87ZNhdwFpVJg3oK37_GEd33-JJ-lX/w640-h350/spanish-colonial-revival-architecture-montecito-estate.png?q=80&w=2000&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeVyfXHmN626XFR47zOGIc_T0lNr9ilcODJ9COiTiY4O9fwEgd026SD3xc5zNv5iHQHsMg8-D6tQUKkhRYX-DcTetFYjtCDzL5a808IPHOq8t-9ENtWJZOAE9ZkKZ_iwHapXIWcEl7XvOYkUcktipkRXn8VkQ7ErQ87ZNhdwFpVJg3oK37_GEd33-JJ-lX/w640-h350/spanish-colonial-revival-architecture-montecito-estate.png",
     page_name: "ProjectCasaDeLaCosta",
     featured: true
   },
@@ -41,7 +39,7 @@ const STATIC_PROJECTS = [
     title: "The Water's Edge",
     description: "Ultra-modern waterfront living with private dock access.",
     location: "Lake Sherwood",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtL04TcuR581hMu3w5n6KidbBF0k5LCBBMOpVMXzYsMrR5e-ki2YFtlj37VaQi14IPtDe863KYyNtxfy7IuU2lKiMx9vcngm6-ULfTRWkmDs1rNakKlTEXJGMIOG-MLDRJ-f_h0YAo_mJ0Z3A2_M40a9b2DrBdbx7h0vp6Y_chbLZXJ1Atvkb-9JvfHr8X/w640-h350/lakefront-infinity-pool-maintenance-lake-sherwood.png?q=80&w=2000&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFenV0jPVYm4z0RrqiZzxP-8AWTIhZP7NRnj82gfmLsQGgWlYgNfhBqhg8M9Ow_BPZYZT0mvCJeipHFJy-akhyd4X-lpDeHPRka_95N7w9mujdcwWwJl9zI7abhHi7NhleO-nooB5-3EFT6guzzXvcdnHciYzzfWUmpvxFD6ZWx4_tA5BoEHx90OeR7joC/w640-h350/lake-sherwood-waterfront-contemporary-estate-architecture.png",
     page_name: "ProjectTheWatersEdge",
     featured: false
   },
@@ -50,7 +48,7 @@ const STATIC_PROJECTS = [
     title: "Oak Creek Reserve",
     description: "Sustainable luxury in the heart of wine country.",
     location: "Calabasas",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_UDif0B41qPM_OPjg9-jL4jqLJAXBFyIguWPzqscXPy3k5LELVX6DJ4bI3WR6FTricxW4xm0SLFJSaziqjeVnLlPDoD9CoYmbm8fqfqxScOIYoLfo-dCW-YF025GsWfgLWK8_obtxv5EyR8pLfmVNDrwlx0KbOLXhHZQbo-wMn4KUruYE0dqOMLCKc-Rm/w640-h350/resort-style-backyard-stone-waterfall-calabasas.png?q=80&w=2000&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRszFBOc89eknG3uwQYYcfEk9CrALXAkpnu6wx7U08o9hR4SfQOsjuZzpNHeZbKRgV-DAVJ1MYnLQu9rgYrXJuDGfPRdAjXShCTzhPR21R5En1SvB5o670PnZgii1qT6xqMZsTMghXP4OGib33NKMDt9fUqPkeZqogjQuTANBChyphenhyphenFTqBfqKIfExtkna60q/w640-h350/modern-ranch-estate-calabasas-gated-community.png",
     page_name: "ProjectOakCreekReserve",
     featured: false
   },
@@ -59,7 +57,7 @@ const STATIC_PROJECTS = [
     title: "The Aspen Estate",
     description: "Winter retreat redefined with warm minimalist design.",
     location: "Malibu",
-    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8ovGbwlrSfoogJpLPLCItRl5JnvDtJ_rauAM7O3pF7y6VFbDaxbcq3oHAYm2khx2h9oRd9EENzca0vJyxLhx9d6dcx4NQ2TFPGa9J73-_3JCmeQtbgGuqBwEJcEDciFEMV_JTyGGNiOpP6uo4lLiuI5tTQWrR4jXgtxpTb5x_lPwzQ5NJXAn5b0dHTuxr/w640-h350/malibu-carbon-beach-modern-glass-architecture-oceanfront.png?q=80&w=2000&auto=format&fit=crop",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8ovGbwlrSfoogJpLPLCItRl5JnvDtJ_rauAM7O3pF7y6VFbDaxbcq3oHAYm2khx2h9oRd9EENzca0vJyxLhx9d6dcx4NQ2TFPGa9J73-_3JCmeQtbgGuqBwEJcEDciFEMV_JTyGGNiOpP6uo4lLiuI5tTQWrR4jXgtxpTb5x_lPwzQ5NJXAn5b0dHTuxr/s2816/malibu-carbon-beach-modern-glass-architecture-oceanfront.png",
     page_name: "ProjectTheAspenEstate",
     featured: false
   }
@@ -69,21 +67,21 @@ const STATIC_INSIGHTS = [
   {
     title: "The Critical Phase",
     description: "Why the final 1% of the build determines the longevity of the asset.",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjZHpVJiaii1xImHtYn-qVstFNfLW2HX_adTg2KY2PBjm-_-M4PY-jjT_z89nFVta0kh5mSDjKbIwDkzErf2P2Q9O4EpmCpMYqOMXoL8mbFAA9RI4993riUrRTtLWa4Ob8MzzDp67s_kvUdkgyia0UeGkeIxGlMW05thOXCCvZXoQdKGYFtEzOWjD8xl9Iy/w640-h350/imported-marble-flooring-beverly-hills-living-room-high-ceiling.png?q=80&w=800&auto=format&fit=crop",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjZHpVJiaii1xImHtYn-qVstFNfLW2HX_adTg2KY2PBjm-_-M4PY-jjT_z89nFVta0kh5mSDjKbIwDkzErf2P2Q9O4EpmCpMYqOMXoL8mbFAA9RI4993riUrRTtLWa4Ob8MzzDp67s_kvUdkgyia0UeGkeIxGlMW05thOXCCvZXoQdKGYFtEzOWjD8xl9Iy/w640-h350/imported-marble-flooring-beverly-hills-living-room-high-ceiling.png",
     link: "InsightPostConstruction",
     label: "Post-Construction"
   },
   {
     title: "Preserving High-End Materials",
     description: "The chemistry of care for natural stone and engineered hardwood.",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9VOlTqs8xdzrdp1Lm3vm0vIIXsSWM2Kh-T1fx6luU_5PiGUCbOz5ZU-qK0GFOxvUoY0XIRmlZyQM9IpodqV1XeTYs-l77EC5UPnJPDp26v-4W-GfbdYiaOF2IIvMS40HGa03yLqhXqXmGo_IdHntCVw26JTNPhYdd6Ie0V8gERx-91bWWAWCkhbvBBDjw/w640-h350/penthouse-interior-view-bay-bridge-floor-care.png?q=80&w=800&auto=format&fit=crop",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9VOlTqs8xdzrdp1Lm3vm0vIIXsSWM2Kh-T1fx6luU_5PiGUCbOz5ZU-qK0GFOxvUoY0XIRmlZyQM9IpodqV1XeTYs-l77EC5UPnJPDp26v-4W-GfbdYiaOF2IIvMS40HGa03yLqhXqXmGo_IdHntCVw26JTNPhYdd6Ie0V8gERx-91bWWAWCkhbvBBDjw/w640-h350/penthouse-interior-view-bay-bridge-floor-care.png",
     link: "InsightMaterials",
     label: "Material Care"
   },
   {
     title: "Defining Luxury",
     description: "The invisible systems and domotics that power modern living.",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjk6Gpjgb2FEhuvsUrpn3HkvfK9QKlIeoeeaemi4qBHkylP7s3L2ylA-9pmBuUh665vRa0_ILf-PjqRAb5u7NxxQo4ZZaUX8A9Kln8CFCrqVR09f-2nlKNxnV308GsSPeQezSerz5B_KM2yoeY8GbjeqT4cDkv8_9NCMKtqdiXuD0LbSvH2wvAfdV65As5f/w640-h350/coastal-estate-pool-patio-maintenance-montecito.png&auto=format&fit=crop",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjk6Gpjgb2FEhuvsUrpn3HkvfK9QKlIeoeeaemi4qBHkylP7s3L2ylA-9pmBuUh665vRa0_ILf-PjqRAb5u7NxxQo4ZZaUX8A9Kln8CFCrqVR09f-2nlKNxnV308GsSPeQezSerz5B_KM2yoeY8GbjeqT4cDkv8_9NCMKtqdiXuD0LbSvH2wvAfdV65As5f/w640-h350/coastal-estate-pool-patio-maintenance-montecito.png",
     link: "InsightLuxurySystems",
     label: "Modern Systems"
   }
@@ -120,14 +118,14 @@ export default function Home() {
           <div className="relative">
             <div className="aspect-[4/5] bg-neutral-200 overflow-hidden">
               <img 
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeVyfXHmN626XFR47zOGIc_T0lNr9ilcODJ9COiTiY4O9fwEgd026SD3xc5zNv5iHQHsMg8-D6tQUKkhRYX-DcTetFYjtCDzL5a808IPHOq8t-9ENtWJZOAE9ZkKZ_iwHapXIWcEl7XvOYkUcktipkRXn8VkQ7ErQ87ZNhdwFpVJg3oK37_GEd33-JJ-lX/w640-h350/spanish-colonial-revival-architecture-montecito-estate.png?q=80&w=2000&auto=format&fit=crop" 
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeVyfXHmN626XFR47zOGIc_T0lNr9ilcODJ9COiTiY4O9fwEgd026SD3xc5zNv5iHQHsMg8-D6tQUKkhRYX-DcTetFYjtCDzL5a808IPHOq8t-9ENtWJZOAE9ZkKZ_iwHapXIWcEl7XvOYkUcktipkRXn8VkQ7ErQ87ZNhdwFpVJg3oK37_GEd33-JJ-lX/w640-h350/spanish-colonial-revival-architecture-montecito-estate.png" 
                 alt="Architectural Detail" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
               />
             </div>
             <div className="absolute -bottom-10 -left-10 w-1/2 aspect-square bg-white p-4 hidden md:block shadow-2xl">
               <img 
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj94LT63KIR1bOYPhKCcrdHlc-ZEiEk_GJtvZFS7VuwQjdljhKNdUZfvjJIwyIy1OUckqnGFtN8HGiGp_riURLEuZx08pOv5Ck4fYYituhm1SlggYhqKz6DSdq2StwvEE2q3cqK3DOqCitlCkCchThm7jE97qUEFmTviXxOV0H_nmARMp4v1bWBDwfqNrT3/w640-h350/calabasas-luxury-home-exposed-wood-beams-cleaning.png?q=80&w=1000&auto=format&fit=crop" 
+                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj94LT63KIR1bOYPhKCcrdHlc-ZEiEk_GJtvZFS7VuwQjdljhKNdUZfvjJIwyIy1OUckqnGFtN8HGiGp_riURLEuZx08pOv5Ck4fYYituhm1SlggYhqKz6DSdq2StwvEE2q3cqK3DOqCitlCkCchThm7jE97qUEFmTviXxOV0H_nmARMp4v1bWBDwfqNrT3/w640-h350/calabasas-luxury-home-exposed-wood-beams-cleaning.png" 
                  alt="Interior Detail" 
                  className="w-full h-full object-cover"
               />
@@ -189,7 +187,7 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Hardcoded Testimonials as fallback/static */}
+            {/* Hardcoded Testimonials */}
             <div className="bg-white p-8 shadow-sm">
               <Quote className="text-amber-200 w-8 h-8 mb-4" />
               <p className="text-neutral-600 italic mb-6 leading-relaxed">
@@ -221,16 +219,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
-          <div className="text-center mt-12">
-            <Link to={createPageUrl('Testimonials')} className="text-amber-700 font-bold text-xs tracking-[0.2em] uppercase border-b border-amber-700 pb-1 hover:text-neutral-900 hover:border-neutral-900 transition-colors">
-              Read More Stories
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Construction Insights - Manual 3 Column Grid */}
+      {/* Construction Insights */}
       <section className="py-32 container mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h4 className="text-amber-600 font-bold text-xs tracking-[0.2em] uppercase mb-4">Expertise & Knowledge</h4>
@@ -272,7 +264,6 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Anchor for Partners */}
       <div id="partners"></div>
     </div>
   );
