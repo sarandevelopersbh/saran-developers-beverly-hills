@@ -1,8 +1,28 @@
-import { createClient } from '@base44/sdk';
-// import { getAccessToken } from '@base44/sdk/utils/auth-utils';
+// src/api/base44Client.js
+console.log("⚠️ Base44 SDK mocked: Running in static mode");
 
-// Create a client with authentication required
-export const base44 = createClient({
-  appId: "6933af8d5ae91cc77f776fb1", 
-  requiresAuth: true // Ensure authentication is required for all operations
-});
+export const base44 = {
+  // Mock 'entities' for Portfolio/Home
+  entities: {
+    Project: {
+      list: async () => [] 
+    }
+  },
+  // Mock 'collection' for everything else
+  collection: (collectionName) => ({
+    list: async () => [],
+    get: async () => ({}),
+    create: async () => ({}),
+    update: async () => ({}),
+    delete: async () => ({}),
+  }),
+  // Mock Auth & Storage
+  auth: {
+    getUser: async () => null,
+    signIn: async () => ({}),
+    signOut: async () => {}
+  },
+  storage: {
+    getUrl: () => ""
+  }
+};
